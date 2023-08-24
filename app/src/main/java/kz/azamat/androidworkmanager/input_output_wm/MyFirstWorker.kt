@@ -1,0 +1,29 @@
+package kz.azamat.androidworkmanager.input_output_wm
+
+import android.content.Context
+import android.util.Log
+import androidx.work.Data
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+
+class MyFirstWorker(context: Context, parameters: WorkerParameters): Worker(context, parameters) {
+
+    private val TAG = this.javaClass.simpleName
+
+    override fun doWork(): Result {
+
+
+        val valueA = inputData.getString("keyA")
+        val valueB = inputData.getInt("keyB", 0)
+        Log.e(TAG, "doWork:valueA $valueA")
+        Log.e(TAG, "doWork:valueB $valueB")
+
+        val output = Data.Builder()
+            .putString("keyA", "value1")
+            .putInt("keyB", 1)
+            .putString("keyC", "valueC")
+            .build()
+
+        return Result.success(output)
+    }
+}
